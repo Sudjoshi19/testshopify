@@ -1,0 +1,102 @@
+# Name your project! Project names should contain only lowercase characters
+# and underscores. A good package name should reflect your organization's
+# name or the intended use of these models
+name: "edm_data_transformation"
+version: "1.0.0"
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: "edm_data_transformation"
+
+vars:
+  # raw_database: "EDM"
+  # raw_schema: "EDM"
+  raw_database: "weezietowelsdaton"  
+  raw_schema: "Weezie_raw_data"
+  mdl_database: "weezietowelsdaton"
+  mdl_schema: "data_modelling_mdl_prerequisites"
+
+  currency_conversion_flag: False
+  table_partition_flag : True
+  snowflake_database_flag : False
+  get_brandname_from_tablename_flag: False
+  # if get_brandname_from_tablename_flag = True, position of brand name in the daton integration name
+  brandname_position_in_tablename: 0
+  # if get_brandname_from_tablename_flag = False, provide the brand name to be populated in the table
+  default_brandname: "Default"
+
+  get_storename_from_tablename_flag: True    
+  # if get_storename_from_tablename_flag = True, position of store name in the daton integration name
+  storename_position_in_tablename: 1
+  # if get_storename_from_tablename_flag = False, provide the store name to be populated in the table
+  default_storename: "US"
+
+  # Google Analytics Account Platform Name Position
+  platform_name_position: 2
+
+  timezone_conversion_flag: False
+  #timezone_conversion_hours: "-7"
+
+  # Variables used for dbt-tests
+  'dbt_date:time_zone': 'America/Los_Angeles'
+
+# These configurations specify where dbt should look for different types of files.
+# The `model-paths` config, for example, states that models in this project can be
+# found in the "models/" directory. You probably won't need to change these!
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+docs-paths: ["docs"]
+
+target-path: "target" # directory which will store compiled SQL files
+clean-targets: # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+# In this example config, we tell dbt to build all models in the example/ directory
+# as tables. These settings can be overridden in the individual model files
+# using the `{{ config(...) }}` macro.
+
+models:
+  edm_data_transformation:
+    # Config indicated by + and applies to all files under models/example/
+    Staging:
+      Common:
+        +schema: stg_common
+      FacebookAds:
+        +schema: stg_facebook_ads
+      COGS:
+        +schema: stg_cogs
+      GoogleAds2:
+        +schema: stg_google_ads
+      GoogleAnalytics:
+        +schema: stg_google_analytics
+      Klaviyo:
+        +schema: stg_klaviyo
+      Shopify:
+        +schema: stg_shopify
+      TikTok:
+        +schema: stg_shopify
+
+    Modelling:
+      Prerequisites:
+        FacebookAds:
+          +schema: mdl_prerequisites 
+        GoogleAds2:
+          +schema: mdl_prerequisites        
+        Shopify:
+          +schema: mdl_prerequisites 
+        DirectMailAds:
+          +schema: mdl_prerequisites   
+        TikTok:
+          +schema: mdl_prerequisites  
+      Main:
+        +schema: mdl_main
+    Presentation:
+      +schema: presentation
