@@ -1,0 +1,2 @@
+select * except( _daton_user_id , _daton_batch_id,sheetVersionNumber,sheetRowNumber)
+from weezietowelsdaton.Weezie_raw_data.Weezie_US_Gsheet_Mapping_Saras___TikTok_Campaign___Ad_Group___Ad_Maping_Sheet1  
