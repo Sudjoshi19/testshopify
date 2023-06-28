@@ -11,9 +11,9 @@ profile: "edm_data_transformation"
 vars:
   # raw_database: "EDM"
   # raw_schema: "EDM"
-  raw_database: "weezietowelsdaton"  
-  raw_schema: "Weezie_raw_data"
-  mdl_database: "weezietowelsdaton"
+  raw_database: "test-dbt-practice"  
+  raw_schema: "Test_rawdata_Sudh"
+  mdl_database: "test-dbt-practice"
   mdl_schema: "data_modelling_mdl_prerequisites"
 
   currency_conversion_flag: False
