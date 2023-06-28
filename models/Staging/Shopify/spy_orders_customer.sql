@@ -19,7 +19,7 @@ SELECT coalesce(MAX(_daton_batch_runtime) - 2592000000,0) FROM {{ this }}
 
 with unnested_customers as(
 {% set table_name_query %}
-{{set_table_name('%weezie%shopify%orders%')}}    
+{{set_table_name('%test%rawdata%sud%')}}    
 {% endset %}  
 
 
